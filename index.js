@@ -58,17 +58,17 @@ app.post("/api/shorturl", function (req, res) {
 
 //read short url from the query
 app.get("/api/shorturl/:shorturl", function (req, res) {
-  console.log(req.params.shorturl);
-  var urlToFind = 1; //parseInt(req.params.shorturl);
+  var urlToFind = parseInt(req.params.shorturl);
   //find it in the database
   urlShortened.find({shortUrl: urlToFind})
               .then((doc) => {
+                //redirect to the long url
                 res.redirect(doc[0]._doc.longUrl);
               })
               .catch((err) => console.log(err));
 })
 
-//redirect to the long url
+
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
